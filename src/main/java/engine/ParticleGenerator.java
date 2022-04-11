@@ -36,7 +36,7 @@ public class ParticleGenerator {
     while (placedParticles < N) {
       double x = Math.random() * cols/2.0;
       double y = Math.random() * rows;
-      double xVel = ((Math.random() * 2) - 1) * 0.01; // para que quede en el rango [-0.001, 0.001]
+      double xVel = ((Math.random() * 2) - 1) * 0.01; // para que quede en el rango [-0.01, 0.01]
       double yVel = Math.sqrt(0.0001 - Math.pow(xVel,2));
       if (grid[(int)x][(int)y] == null) {
         grid[(int) x][(int) y] = new Particle(x, y, 1, radius, xVel, yVel);
