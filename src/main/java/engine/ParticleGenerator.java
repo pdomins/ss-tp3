@@ -15,7 +15,7 @@ public class ParticleGenerator {
       throw new Error(String.format("Can't place more than %d particles", maxCells));
     }
 
-    int rows = (int) Math.floor(height / (radius*2)) + 3;
+    int rows = (int) Math.floor(height / (radius*2)) + 2;
     int cols = (int) Math.floor(width / (radius*2)) + 3; // "celdas" de 0.03 x 0.03 con 3 posibles walls
 
     for (int i = 0; i < rows; i++) {
