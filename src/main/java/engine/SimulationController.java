@@ -1,6 +1,7 @@
 package engine;
 
 import model.Element;
+import static Parser.CliParser.N;
 
 public class SimulationController {
   public static double height = 0.09;
@@ -10,7 +11,7 @@ public class SimulationController {
   public static Element[][] cells;
 
   public static void simulate(){
-    ParticleGenerator.generate(height, width, radius, 2000, cells);
+    ParticleGenerator.generate(height, width, radius, N, cells);
 
 
   }
