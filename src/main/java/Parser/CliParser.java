@@ -5,6 +5,7 @@ import org.apache.commons.cli.*;
 public class CliParser {
 
     public static int N;
+    public static double D;
     public static double V;
     public static double R;
     public static double W;
@@ -14,6 +15,9 @@ public class CliParser {
         Options options = new Options();
         options.addOption("n", true, "total amount of particles");
         options.addOption("N", true, "total amount of particles");
+
+        options.addOption("d", true, "opening size");
+        options.addOption("D", true, "opening size");
 
         options.addOption("v", true, "velocity");
         options.getOption("v").setOptionalArg(true);
@@ -34,6 +38,7 @@ public class CliParser {
     private static void help() {
         System.out.println("Please remember the valid options are: ");
         System.out.println("-n or -N <value> to specify the number of particles,");
+        System.out.println("-d or -D <value> to specify the size of the gap,");
         System.out.println("-v or -V <value> to specify the velocity of the particles (Optional),");
         System.out.println("-d or -D <value> to set default settings (Optional),");
         System.out.println("-h or -help to see the menu.");
@@ -65,19 +70,16 @@ public class CliParser {
                 N = 2000;
             }
             if (commandLine.hasOption("d")) {
+                D = Integer.parseInt(commandLine.getOptionValue("d"));
+            } else if (commandLine.hasOption("D")) {
+                D = Integer.parseInt(commandLine.getOptionValue("D"));
+            } else {
+                D = 0.02;
+            }
+            if (commandLine.hasOption("d") ||commandLine.hasOption("D")) {
                 V = 0.01;
                 R = 0.0015;
                 W = 1;
-            }else if (commandLine.hasOption("D")){
-                V = 0.01;
-                R = 0.0015;
-                W = 1;
-            }else{
-                if (commandLine.hasOption("d")) {
-                    V = 0.01;
-                    R = 0.0015;
-                    W = 1;
-                }
             }
         } catch (ParseException e) {
             System.out.println(e.getMessage() + ".");
