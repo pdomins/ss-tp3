@@ -68,6 +68,16 @@ public class CliParser {
                 V = 0.01;
                 R = 0.0015;
                 W = 1;
+            }else if (commandLine.hasOption("D")){
+                V = 0.01;
+                R = 0.0015;
+                W = 1;
+            }else{
+                if (commandLine.hasOption("d")) {
+                    V = 0.01;
+                    R = 0.0015;
+                    W = 1;
+                }
             }
         } catch (ParseException e) {
             System.out.println(e.getMessage() + ".");
