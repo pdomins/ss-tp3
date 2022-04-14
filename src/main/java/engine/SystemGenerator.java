@@ -13,7 +13,6 @@ public class SystemGenerator {
     public static List<Wall> walls = new ArrayList<>();
     public static double height = 0.09;
     public static double width = 0.24;
-    public static double radius = 0.0015;
 
     public static void generate() {
         generateWalls(); //set box size
@@ -30,11 +29,42 @@ public class SystemGenerator {
     }
 
     private static void generateParticles() {
-        for (int i = 0; i < N ; i++){
+        for (int i = 0; i < N; i++) {
             particles.add(generateParticle(i));
         }
     }
-    private static Particle generateParticle(int id){
 
+    private static Particle generateParticle(int id) {
+        double toSetX = 0, toSetY = 0, velX = 0, velY = 0;
+        boolean particleIsSet = false;
+        while (!particleIsSet) {
+            toSetX = getRandom(0, (width / 2));
+            toSetY = getRandom(0, height);
+            if (checkOverlap(toSetX, toSetY)) {
+                particleIsSet = true; //if they dont overlap, then set the particle
+            }
+        }
+        double angle = getRandom(0, 360);
+        double angleInRadians = angle * Math.PI / 180.0;
+        velX = Math.cos(angleInRadians) * V;
+        velY = Math.sin(angleInRadians) * V;
+        return new Particle(toSetX, toSetY, W, R, velX, velY);
+    }
+
+    private static boolean checkOverlap(double x, double y) {
+        if (x < R || y < R)
+            return true;
+        if ((x + R > width / 2) || (y + R > height))
+            return true;
+
+        for (Particle particle : particles) {
+            if (((Math.hypot(particle.xPos - x, particle.yPos - y)) - particle.radius - R) < 0)
+                return true;
+        }
+        return false;
+    }
+
+    private static double getRandom(double min, double max) {
+        return (Math.random() * (max - min + 1) + min);
     }
 }
