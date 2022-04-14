@@ -1,5 +1,6 @@
 package model;
 
+@Deprecated
 public abstract class Element {
   public double weight;
   public double xPos;

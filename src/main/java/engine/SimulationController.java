@@ -3,6 +3,7 @@ package engine;
 import model.Element;
 import static Parser.CliParser.N;
 
+@Deprecated
 public class SimulationController {
   public static double height = 0.09;
   public static double width = 0.24;
