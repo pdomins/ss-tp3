@@ -67,4 +67,8 @@ public class SystemGenerator {
     private static double getRandom(double min, double max) {
         return (Math.random() * (max - min + 1) + min);
     }
+
+    public static Wall getWall(int idx) {
+        return walls.get(idx);
+    }
 }

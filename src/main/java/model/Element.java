@@ -1,6 +1,5 @@
 package model;
 
-@Deprecated
 public abstract class Element {
   public double weight;
   public double xPos;
@@ -13,4 +12,6 @@ public abstract class Element {
     this.yPos = yPos;
     this.radius = radius;
   }
+
+  public Element(){}
 }

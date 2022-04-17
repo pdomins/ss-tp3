@@ -8,6 +8,10 @@ public class Wall extends Element {
     private double yPosition;
     private double length;
 
+    public Wall() {
+        super();
+    }
+
     public Wall(boolean isHorizontal, double xPosition, double yPosition, double length) {
         super(xPosition, yPosition, 0, 0); //esto vuela cuando se vaya Element
         this.isHorizontal = isHorizontal;
