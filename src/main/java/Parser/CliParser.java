@@ -9,6 +9,7 @@ public class CliParser {
     public static double V;
     public static double R;
     public static double W;
+    public static double PERCENTAGE;
 
 
     private Options getCommandlineOptions() {
@@ -81,6 +82,7 @@ public class CliParser {
                 R = 0.0015;
                 W = 1;
             }
+            PERCENTAGE = 0.5;
         } catch (ParseException e) {
             System.out.println(e.getMessage() + ".");
             help();

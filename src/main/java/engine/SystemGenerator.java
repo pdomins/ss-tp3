@@ -40,7 +40,7 @@ public class SystemGenerator {
         while (!particleIsSet) {
             toSetX = getRandom(0, (width / 2));
             toSetY = getRandom(0, height);
-            if (checkOverlap(toSetX, toSetY)) {
+            if (!checkOverlap(toSetX, toSetY)) {
                 particleIsSet = true; //if they dont overlap, then set the particle
             }
         }

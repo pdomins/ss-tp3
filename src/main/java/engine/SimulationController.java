@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static Parser.CliParser.D;
+import static Parser.CliParser.PERCENTAGE;
+import static engine.SystemGenerator.particles;
+import static engine.SystemGenerator.width;
 
 public class SimulationController {
 
@@ -67,5 +70,23 @@ public class SimulationController {
   }
 
   public static void saveState() {
+  }
+
+  public static boolean verifiesEquilibrium(){
+    int particlesLeft = 0, particlesRight = 0;
+    for(Particle particle : particles){
+      if(particle.getXPos() < width/2){
+        particlesLeft++;
+      }
+      else{
+        particlesRight++;
+      }
+    }
+    if(Math.abs(particlesLeft - particlesRight) < (particles.size() * PERCENTAGE)){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }
