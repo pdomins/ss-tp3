@@ -20,6 +20,10 @@ public class Wall extends Element {
         this.length = length;
     }
 
+    public boolean isHorizontal(){
+        return isHorizontal;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -5,6 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import static engine.SystemGenerator.height;
+import static engine.SystemGenerator.width;
+import static Parser.CliParser.*;
+
 public class FileGenerator {
     private FileWriter fw1;
     //private FileWriter fw2;
@@ -54,6 +58,7 @@ public class FileGenerator {
 
 
     private void writeWalls(List<Wall> walls){
+        double x, y;
         try{
             FileWriter fw = new FileWriter("Walls.xyz");
             fw.close();
@@ -61,7 +66,31 @@ public class FileGenerator {
             BufferedWriter buffer = new BufferedWriter(fw);
 
             buffer.write("X Y Radius\n");
-                    //escribe paredes
+                    for(Wall wall :walls){
+                        x = wall.getXPos();
+                        y = wall.getYPos();
+                        if(wall.isHorizontal()){
+                            while(x< width){
+                                buffer.write(x + " " + y + " " + wall.getRadius() + "\n");
+                                x += 0.001;
+                            }
+                        }
+                        else{
+                            if((x == width/2) && (y == 0.0)){
+                                while (y<((height-D) /2)){
+                                    buffer.write(x + " " + y + " " + wall.getRadius() + "\n");
+                                    y += 0.001;
+                                }
+                            }
+                            else{
+                                while (y<height){
+                                    buffer.write(x + " " + y + " " + wall.getRadius() + "\n");
+                                    y += 0.001;
+                                }
+                            }
+                        }
+
+                    }
             buffer.close();
         } catch (IOException e){
             e.printStackTrace();

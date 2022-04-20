@@ -25,7 +25,7 @@ public class SystemGenerator {
         walls.add(new Wall(false, 0, 0, height));
         walls.add(new Wall(false, width, 0, height));
         walls.add(new Wall(false, width / 2, 0, (height - D) / 2));
-        walls.add(new Wall(false, width / 2, ((height - D) / 2) + D, (height - D) / 2));
+        walls.add(new Wall(false, width / 2, ((height + D) / 2), height));
     }
 
     private static void generateParticles() {
