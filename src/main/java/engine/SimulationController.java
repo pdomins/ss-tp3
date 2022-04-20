@@ -61,8 +61,11 @@ public class SimulationController {
     return events.ceilingEntry(events.firstKey()); //CHECK
   }
 
-  public static void evolveParticles(){
-
+  public static void evolveParticles(Double tc){
+    for (Particle p : particles) {
+      p.calculateXPosition(tc);
+      p.calculateYPosition(tc);
+    }
   }
 
   private static double calculateImpactTime(Particle p, Wall w){

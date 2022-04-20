@@ -20,7 +20,7 @@ public class EventSimulator {
 
             // 3) Se evolucionan todas las partículas según sus ecuaciones de movimiento hasta tc.
 
-            SimulationController.evolveParticles();
+            SimulationController.evolveParticles(event.getKey());
 
             // 4) Se guarda el estado del sistema (posiciones y velocidades) en t = tc.
 
