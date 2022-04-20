@@ -40,7 +40,7 @@ public class SystemGenerator {
         while (!particleIsSet) {
             toSetX = getRandom(0, (width / 2));
             toSetY = getRandom(0, height);
-            if (checkOverlap(toSetX, toSetY)) {
+            if (!checkOverlap(toSetX, toSetY)) {
                 particleIsSet = true; //if they dont overlap, then set the particle
             }
         }
@@ -66,5 +66,9 @@ public class SystemGenerator {
 
     private static double getRandom(double min, double max) {
         return (Math.random() * (max - min + 1) + min);
+    }
+
+    public static Wall getWall(int idx) {
+        return walls.get(idx);
     }
 }

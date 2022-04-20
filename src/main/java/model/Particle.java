@@ -18,4 +18,12 @@ public class Particle extends Element {
   public void calculateYPosition(double time) {
     this.yVel += (this.yVel * time);
   }
+
+  public double getxVel(){
+    return this.xVel;
+  }
+
+  public double getyVel() {
+    return this.yVel;
+  }
 }
