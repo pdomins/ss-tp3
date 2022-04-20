@@ -96,20 +96,34 @@ public class SimulationController {
   }
 
   public static boolean verifiesEquilibrium(){
-    int particlesLeft = 0, particlesRight = 0;
-    for(Particle particle : particles){
-      if(particle.getXPos() < width/2){
-        particlesLeft++;
-      }
-      else{
-        particlesRight++;
-      }
-    }
+    int particlesLeft = getPariclesLeft();
+    int particlesRight = getParticlesRight();
+
     if(Math.abs(particlesLeft - particlesRight) < (particles.size() * PERCENTAGE)){
       return true;
     }
     else{
       return false;
     }
+  }
+
+  public static int getPariclesLeft(){
+    int particlesLeft = 0;
+    for(Particle particle : particles) {
+      if (particle.getXPos() < width / 2) {
+        particlesLeft++;
+      }
+    }
+    return particlesLeft;
+  }
+
+  public static int getParticlesRight(){
+    int particlesRight = 0;
+    for(Particle particle : particles) {
+      if (particle.getXPos() > width / 2) {
+        particlesRight++;
+      }
+    }
+    return particlesRight;
   }
 }

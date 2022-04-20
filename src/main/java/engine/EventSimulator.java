@@ -7,12 +7,13 @@ import model.Particle;
 
 import static engine.SystemGenerator.particles;
 import static engine.SystemGenerator.walls;
+import static Parser.CliParser.*;
 
 import java.util.Map;
 
 public class EventSimulator {
     public static void simulate(){
-        long time;
+        long startTime, endTime;
         boolean isBalanced = false;
 
         // 1) Se definen las posiciones y velocidades iniciales, los radios y tamaño de la caja.
@@ -20,12 +21,15 @@ public class EventSimulator {
 
         FileGenerator fileGenerator = new FileGenerator(walls);
 
-        time =System.currentTimeMillis();
+        startTime =System.currentTimeMillis();
 
         while (!isBalanced) {
+
+            endTime = System.currentTimeMillis();
+
             // agrega las particulas al outputFile
             fileGenerator.addParticles(particles);
-
+            fileGenerator.writeCSV(endTime-startTime, particles.size(), SimulationController.getPariclesLeft(), SimulationController.getParticlesRight());
             // 2) Se calcula el tiempo hasta el primer choque (evento!) (tc).
 
             Map.Entry<Double, Element[]> event = SimulationController.getMinimumTc();
@@ -46,8 +50,8 @@ public class EventSimulator {
             isBalanced = true;  // borrar
 
         }
-        time = System.currentTimeMillis() -time;
-        System.out.println("Simutation took " + time + " ms");
+        long totalTime = System.currentTimeMillis() -startTime;
+        System.out.println("Simutation took " + totalTime + " ms with " + particles.size() + " particles and D = " + D + "\n");
         fileGenerator.closeFiles();
     }
 }
