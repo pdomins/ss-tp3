@@ -14,4 +14,20 @@ public abstract class Element {
   }
 
   public Element(){}
+
+  public double getXPos(){
+    return this.xPos;
+  }
+
+  public double getYPos(){
+    return this.yPos;
+  }
+
+  public double getRadius(){
+    return this.radius;
+  }
+
+  public double getWeight(){
+    return this.weight;
+  }
 }

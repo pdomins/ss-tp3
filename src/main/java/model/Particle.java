@@ -19,7 +19,11 @@ public class Particle extends Element {
     this.yVel += (this.yVel * time);
   }
 
-  public double getXPos(){
-    return this.xPos;
+  public double getxVel(){
+    return this.xVel;
+  }
+
+  public double getyVel() {
+    return this.yVel;
   }
 }
