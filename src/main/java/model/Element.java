@@ -12,4 +12,22 @@ public abstract class Element {
     this.yPos = yPos;
     this.radius = radius;
   }
+
+  public Element(){}
+
+  public double getXPos(){
+    return this.xPos;
+  }
+
+  public double getYPos(){
+    return this.yPos;
+  }
+
+  public double getRadius(){
+    return this.radius;
+  }
+
+  public double getWeight(){
+    return this.weight;
+  }
 }

@@ -6,6 +6,7 @@ import model.Wall;
 
 import java.util.Random;
 
+@Deprecated
 public class ParticleGenerator {
 
   public static void generate(double height, double width, double radius, int N, Element[][] grid){
