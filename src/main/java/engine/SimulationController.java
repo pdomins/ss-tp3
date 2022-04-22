@@ -92,9 +92,6 @@ public class SimulationController {
     return VRProduct >= 0 || d < 0;
   }
 
-  public static void saveState() {
-  }
-
   public static boolean verifiesEquilibrium(){
     int particlesLeft = getPariclesLeft();
     int particlesRight = getParticlesRight();
@@ -125,5 +122,36 @@ public class SimulationController {
       }
     }
     return particlesRight;
+  }
+
+  public static void resolveNewSpeeds(Element[] particle){
+    if (particle[0] instanceof Wall || particle[1] instanceof Wall){
+      if(particle[0] instanceof Wall){
+        if (particle[0].isHorizontal()){
+          particle[1].yVel * -1;
+        } else {
+          particle[1].xVel * -1;
+        }
+      } else {
+        if (particle[1].isHorizontal()){
+          particle[0].yVel * -1;
+        } else {
+          particle[0].xVel * -1;
+        }
+      }
+    } else {
+      double[] deltaV = new double[]{particle[1].xVel - particle[0].xVel, particle[1].yVel - particle[0].yVel};
+      double[] deltaR = new double[]{particle[1].xPos - particle[0].xPos, particle[1].yPos - particle[0].yPos};
+      double sigma = particle[1].radius + particle[0].radius;
+      double J = (2 * Math.pow(particle[0].weight,2) * scalarVectorMultiply(deltaV, deltaR))/(sigma*2*particle[0].weight);
+      double Jx = (J * (particle[1].xPos-particle[0].xPos))/sigma;
+      double Jy = (J * (particle[1].yPos-particle[0].yPos))/sigma;
+
+      particle[0].xVel += Jx/particle[0].weight;
+      particle[0].yVel += Jy/particle[0].weight;
+
+      particle[1].xVel -= Jx/particle[1].weight;
+      particle[1].yVel -= Jy/particle[1].weight
+    }
   }
 }

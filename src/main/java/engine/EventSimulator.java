@@ -34,16 +34,14 @@ public class EventSimulator {
 
             Map.Entry<Double, Element[]> event = SimulationController.getMinimumTc();
 
-            // 3) Se evolucionan todas las partículas según sus ecuaciones de movimiento hasta tc.
+            // 3 y 4) Se evolucionan todas las partículas según sus ecuaciones de movimiento hasta tc y se guarda el estado.
 
             SimulationController.evolveParticles(event.getKey());
 
-            // 4) Se guarda el estado del sistema (posiciones y velocidades) en t = tc.
-
-            SimulationController.saveState();
-
             // 5) Con el “operador de colisión” se determinan las nuevas velocidades después del choque,
             // solo para las partículas que chocaron.
+
+            SimulationController.resolveNewSpeeds(event.getValue());
 
             // 6) Verifica si se llegó al equilibrio. Si llegó corta, sino vuelve al paso 2).
             isBalanced = SimulationController.verifiesEquilibrium();
