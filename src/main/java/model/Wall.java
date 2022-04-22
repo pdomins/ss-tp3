@@ -13,7 +13,7 @@ public class Wall extends Element {
     }
 
     public Wall(boolean isHorizontal, double xPosition, double yPosition, double length) {
-        super(xPosition, yPosition, 0, 0); //esto vuela cuando se vaya Element
+        super(xPosition, yPosition, 0, 0.0001); //esto vuela cuando se vaya Element
         this.isHorizontal = isHorizontal;
         this.xPosition = xPosition;
         this.yPosition = yPosition;

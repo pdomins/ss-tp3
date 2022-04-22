@@ -4,6 +4,7 @@ public class Particle extends Element {
 
   public double xVel;
   public double yVel;
+  public String lastCollision;
 
   public Particle(double xPos, double yPos, double weight, double radius, double xVel, double yVel) {
     super(xPos, yPos, weight, radius);
@@ -25,5 +26,13 @@ public class Particle extends Element {
 
   public double getyVel() {
     return this.yVel;
+  }
+
+  public void setLastCollision(String lastCollision){
+    this.lastCollision = lastCollision;
+  }
+
+  public String lastCollision(){
+    return this.lastCollision;
   }
 }

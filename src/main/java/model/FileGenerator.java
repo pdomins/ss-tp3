@@ -64,7 +64,7 @@ public class FileGenerator {
             fw.close();
             fw = new FileWriter("Walls.xyz", true);
             BufferedWriter buffer = new BufferedWriter(fw);
-
+            buffer.write("7303\n");
             buffer.write("X Y Radius\n");
                     for(Wall wall :walls){
                         x = wall.getXPos();
@@ -72,20 +72,20 @@ public class FileGenerator {
                         if(wall.isHorizontal()){
                             while(x< width){
                                 buffer.write(x + " " + y + " " + wall.getRadius() + "\n");
-                                x += 0.001;
+                                x += 0.0001;
                             }
                         }
                         else{
                             if((x == width/2) && (y == 0.0)){
                                 while (y<((height-D) /2)){
                                     buffer.write(x + " " + y + " " + wall.getRadius() + "\n");
-                                    y += 0.001;
+                                    y += 0.0001;
                                 }
                             }
                             else{
                                 while (y<height){
                                     buffer.write(x + " " + y + " " + wall.getRadius() + "\n");
-                                    y += 0.001;
+                                    y += 0.0001;
                                 }
                             }
                         }
