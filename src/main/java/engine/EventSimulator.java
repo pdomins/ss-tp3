@@ -3,7 +3,6 @@ package engine;
 
 import model.Element;
 import model.FileGenerator;
-import model.Particle;
 
 import static engine.SystemGenerator.particles;
 import static engine.SystemGenerator.walls;
@@ -45,18 +44,18 @@ public class EventSimulator {
 
             // 6) Verifica si se llegó al equilibrio. Si llegó corta, sino vuelve al paso 2).
             isBalanced = SimulationController.verifiesEquilibrium();
-            if (isBalanced) {
-                totalTime = System.currentTimeMillis() - startTime;
-                long pressureStartTime = System.currentTimeMillis(), pressureCurrentTime = 0;
-                while (pressureCurrentTime < (totalTime - startTime) * 0.2) {
-                    //calculamos la presion
-                    fileGenerator.addPressure(pressureCurrentTime, SimulationController.getSystemPressure());
-                    event = SimulationController.getMinimumTc();
-                    SimulationController.evolveParticles(event.getKey());
-                    SimulationController.resolveNewSpeeds(event.getValue());
-                    pressureCurrentTime = System.currentTimeMillis() - pressureStartTime;
-                }
-            }
+//            if (isBalanced) {
+//                totalTime = System.currentTimeMillis() - startTime;
+//                long pressureStartTime = System.currentTimeMillis(), pressureCurrentTime = 0;
+//                while (pressureCurrentTime < (totalTime - startTime) * 0.2) {
+//                    //calculamos la presion
+//                    fileGenerator.addPressure(pressureCurrentTime, SimulationController.getSystemPressure());
+//                    event = SimulationController.getMinimumTc();
+//                    SimulationController.evolveParticles(event.getKey());
+//                    SimulationController.resolveNewSpeeds(event.getValue());
+//                    pressureCurrentTime = System.currentTimeMillis() - pressureStartTime;
+//                }
+//            }
 //            isBalanced = true;  // borrar
 
         }

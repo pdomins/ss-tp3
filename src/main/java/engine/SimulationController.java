@@ -44,10 +44,10 @@ public class SimulationController {
             }
 
             if (p.yVel > 0) {
-                w = SystemGenerator.getWall(0);
+                w = SystemGenerator.getWall(1);
                 events.put(calculateImpactTime(w.yPos, -p.radius, p.yPos, p.yVel), new Element[]{p, w});
             } else {
-                w = SystemGenerator.getWall(1);
+                w = SystemGenerator.getWall(0);
                 events.put(calculateImpactTime(w.yPos, p.radius, p.yPos, p.yVel), new Element[]{p, w});
             }
         }
@@ -77,7 +77,7 @@ public class SimulationController {
     }
 
     private static double calculateImpactTime(double wallPos, double radius, double particlePos, double particleVel) {
-        return (wallPos + radius + particlePos) / particleVel;
+        return (wallPos + radius - particlePos) / particleVel;
     }
 
     private static double calculateImpactTime(double VR, double d, double VV) {
@@ -95,6 +95,7 @@ public class SimulationController {
     public static boolean verifiesEquilibrium() {
         int particlesLeft = getPariclesLeft();
         int particlesRight = getParticlesRight();
+        System.out.println(particlesLeft + " " + particlesRight);
 
         if (Math.abs(particlesLeft - particlesRight) < (particles.size() * PERCENTAGE)) {
             return true;
