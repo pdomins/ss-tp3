@@ -71,7 +71,7 @@ public class SimulationController {
             }
         }
 
-        return events.ceilingEntry(events.firstKey()); //CHECK
+        return events.firstEntry(); //CHECK
     }
 
     public static void evolveParticles(Double tc) {

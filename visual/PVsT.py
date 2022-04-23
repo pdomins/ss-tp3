@@ -58,7 +58,7 @@ y_pressure_error = [stdDev1, stdDev2, stdDev3, stdDev4, stdDev5, stdDev6, stdDev
 
 plt.errorbar(energies,pressures, yerr = y_pressure_error, capsize = 3)
 ##ax.set_title("Presion vs Energia con N=??? y D=???")
-ax.set_xlabel('Temperatura')
+ax.set_xlabel('Energia (J)')
 ax.set_ylabel('Presion (N/m)')
 
 

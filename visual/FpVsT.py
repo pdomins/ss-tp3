@@ -27,7 +27,7 @@ for line in InputLines:
     count += 1
 
 fig, ax = plt.subplots()
-ax.scatter(times0, pR)
+
 ax.scatter(times0, pL)
 
 ##y_error = 20*0.10             ## El 10% de error
@@ -37,7 +37,7 @@ ax.scatter(times0, pL)
 #plt.errorbar(n,averageTime, yerr = y_error, capsize = 3)
 ##ax.set_title("Fraccion de particulas en los recinto traves del tiempo con N=??")
 ax.set_xlabel('Tiempo (ms)')
-ax.set_ylabel('Fraccion de particulas')
+ax.set_ylabel('Fraccion de particulas en el recinto izquierdo')
 
 plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
 ax.xaxis.major.formatter._useMathText = True

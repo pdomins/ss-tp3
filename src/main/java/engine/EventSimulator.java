@@ -14,6 +14,8 @@ public class EventSimulator {
     public static void simulate() {
         long startTime, endTime, totalTime = 0;
         boolean isBalanced = false;
+        double tcSum = 0;
+        double delta = T;
 
         // 1) Se definen las posiciones y velocidades iniciales, los radios y tamaño de la caja.
         SystemGenerator.generate();
@@ -26,12 +28,18 @@ public class EventSimulator {
 
             endTime = System.currentTimeMillis();
 
-            // agrega las particulas al outputFile
-            fileGenerator.addParticles(particles);
-            fileGenerator.writeCSV(endTime - startTime, particles.size(), SimulationController.getParticlesLeft(), SimulationController.getParticlesRight());
+            if(tcSum>delta) {
+                // agrega las particulas al outputFile
+                fileGenerator.addParticles(particles);
+                fileGenerator.writeCSV(endTime - startTime, particles.size(), SimulationController.getParticlesLeft(), SimulationController.getParticlesRight());
+                tcSum=0;
+            }
+
             // 2) Se calcula el tiempo hasta el primer choque (evento!) (tc).
 
             event = SimulationController.getMinimumTc();
+
+            tcSum += event.getKey();
 
             // 3 y 4) Se evolucionan todas las partículas según sus ecuaciones de movimiento hasta tc y se guarda el estado.
 
