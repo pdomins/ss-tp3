@@ -36,7 +36,7 @@ public class SimulationController {
                 if (p.xPos > SystemGenerator.width / 2) {
                     if (p.yPos > (((SystemGenerator.height - D) / 2) + D)) {
                         w = SystemGenerator.getWall(5);
-                    } else if (p.yPos > (((SystemGenerator.height - D) / 2))) {
+                    } else if (p.yPos < (((SystemGenerator.height - D) / 2))) {
                         w = SystemGenerator.getWall(4);
                     } else {
                         w = SystemGenerator.getWall(2);
@@ -70,6 +70,7 @@ public class SimulationController {
                 }
             }
         }
+
         return events.ceilingEntry(events.firstKey()); //CHECK
     }
 
@@ -81,6 +82,7 @@ public class SimulationController {
     }
 
     private static double calculateImpactTime(double wallPos, double radius, double particlePos, double particleVel) {
+        if ((wallPos + radius - particlePos) / particleVel < 0) return 0;
         return (wallPos + radius - particlePos) / particleVel;
     }
 
@@ -103,7 +105,7 @@ public class SimulationController {
         System.out.println(particlesLeft + " " + particlesRight);
 
 //        return Math.abs(particlesLeft - particlesRight) < (particles.size() * PERCENTAGE);
-        return( particlesRight == particles.size() * PERCENTAGE);
+        return (particlesRight == particles.size() * PERCENTAGE * 0.8);
     }
 
     public static int getParticlesLeft() {

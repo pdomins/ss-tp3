@@ -46,6 +46,7 @@ public class EventSimulator {
             isBalanced = SimulationController.verifiesEquilibrium();
             if (isBalanced) {
                 totalTime = System.currentTimeMillis() - startTime;
+                System.out.println("Simulation took " + totalTime + " ms with " + particles.size() + " particles and D = " + D + "\n");
 //                long pressureStartTime = System.currentTimeMillis(), pressureCurrentTime = 0;
 //                while (pressureCurrentTime < (totalTime - startTime) * 0.2) {
 //                    //calculamos la presion
@@ -58,7 +59,6 @@ public class EventSimulator {
             }
 
         }
-        System.out.println("Simulation took " + totalTime + " ms with " + particles.size() + " particles and D = " + D + "\n");
         fileGenerator.closeFiles();
     }
 }

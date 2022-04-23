@@ -130,6 +130,7 @@ public class FileGenerator {
         try {
             buffer1.close();
             buffer2.close();
+            buffer3.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
