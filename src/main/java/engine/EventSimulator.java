@@ -28,10 +28,11 @@ public class EventSimulator {
 
             // agrega las particulas al outputFile
             fileGenerator.addParticles(particles);
-            fileGenerator.writeCSV(endTime - startTime, particles.size(), SimulationController.getPariclesLeft(), SimulationController.getParticlesRight());
+            fileGenerator.writeCSV(endTime - startTime, particles.size(), SimulationController.getParticlesLeft(), SimulationController.getParticlesRight());
             // 2) Se calcula el tiempo hasta el primer choque (evento!) (tc).
 
             event = SimulationController.getMinimumTc();
+            System.out.println(event.getKey());
 
             // 3 y 4) Se evolucionan todas las partículas según sus ecuaciones de movimiento hasta tc y se guarda el estado.
 
