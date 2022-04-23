@@ -76,8 +76,10 @@ public class SimulationController {
 
     public static void evolveParticles(Double tc) {
         for (Particle p : particles) {
-            p.calculateXPosition(tc);
-            p.calculateYPosition(tc);
+            if (!p.isBorder()) {
+                p.calculateXPosition(tc);
+                p.calculateYPosition(tc);
+            }
         }
     }
 
@@ -105,7 +107,8 @@ public class SimulationController {
         System.out.println(particlesLeft + " " + particlesRight);
 
 //        return Math.abs(particlesLeft - particlesRight) < (particles.size() * PERCENTAGE);
-        return (particlesRight == particles.size() * PERCENTAGE * 0.8);
+//        return (particlesRight == particles.size() * PERCENTAGE * 0.8);
+        return particlesLeft == particlesRight;
     }
 
     public static int getParticlesLeft() {
@@ -159,11 +162,14 @@ public class SimulationController {
             double Jx = (J * (pj.xPos - pi.xPos)) / sigma;
             double Jy = (J * (pj.yPos - pi.yPos)) / sigma;
 
-            pi.xVel += Jx / particle[0].weight;
-            pi.yVel += Jy / particle[0].weight;
-
-            pj.xVel -= Jx / particle[1].weight;
-            pj.yVel -= Jy / particle[1].weight;
+            if (!pi.isBorder()) {
+                pi.xVel += Jx / particle[0].weight;
+                pi.yVel += Jy / particle[0].weight;
+            }
+            if (!pj.isBorder()) {
+                pj.xVel -= Jx / particle[1].weight;
+                pj.yVel -= Jy / particle[1].weight;
+            }
         }
     }
 

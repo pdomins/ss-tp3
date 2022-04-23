@@ -2,7 +2,6 @@ package engine;
 
 import model.Particle;
 import model.Wall;
-import model.WallBorder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +27,9 @@ public class SystemGenerator {
         walls.add(new Wall(4,false, width / 2, 0, (height - D) / 2));
 //        walls.add(new Wall(false, width / 2, ((height + D) / 2), height));
         walls.add(new Wall(5,false, width / 2, ((height - D) / 2) + D, (height - D) / 2));
+
+        particles.add(new Particle(N, width / 2, (height - D) / 2, true));
+        particles.add(new Particle(N+1, width / 2,((height - D) / 2) + D, true));
     }
 
     private static void generateParticles() {
