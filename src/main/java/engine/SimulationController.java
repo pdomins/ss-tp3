@@ -25,8 +25,10 @@ public class SimulationController {
                 } else {
                     if (p.yPos > (((SystemGenerator.height - D) / 2) + D)) {
                         w = SystemGenerator.getWall(5);
-                    } else {
+                    } else if (p.yPos < (((SystemGenerator.height - D) / 2))) {
                         w = SystemGenerator.getWall(4);
+                    } else {
+                        w = SystemGenerator.getWall(3);
                     }
                 }
                 events.put(calculateImpactTime(w.xPos, -p.radius, p.xPos, p.xVel), new Element[]{p, w});
@@ -34,8 +36,10 @@ public class SimulationController {
                 if (p.xPos > SystemGenerator.width / 2) {
                     if (p.yPos > (((SystemGenerator.height - D) / 2) + D)) {
                         w = SystemGenerator.getWall(5);
-                    } else {
+                    } else if (p.yPos > (((SystemGenerator.height - D) / 2))) {
                         w = SystemGenerator.getWall(4);
+                    } else {
+                        w = SystemGenerator.getWall(2);
                     }
                 } else {
                     w = SystemGenerator.getWall(2);
@@ -98,7 +102,8 @@ public class SimulationController {
 
         System.out.println(particlesLeft + " " + particlesRight);
 
-        return Math.abs(particlesLeft - particlesRight) < (particles.size() * PERCENTAGE);
+//        return Math.abs(particlesLeft - particlesRight) < (particles.size() * PERCENTAGE);
+        return( particlesRight == particles.size() * PERCENTAGE);
     }
 
     public static int getParticlesLeft() {

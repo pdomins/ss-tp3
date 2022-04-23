@@ -4,10 +4,12 @@ public class Particle extends Element {
 
     public double xVel;
     public double yVel;
+    public int id;
     public String lastCollision;
 
-    public Particle(double xPos, double yPos, double weight, double radius, double xVel, double yVel) {
+    public Particle(int id, double xPos, double yPos, double weight, double radius, double xVel, double yVel) {
         super(xPos, yPos, weight, radius);
+        this.id = id;
         this.xVel = xVel;
         this.yVel = yVel;
     }

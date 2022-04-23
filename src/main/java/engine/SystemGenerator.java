@@ -25,7 +25,8 @@ public class SystemGenerator {
         walls.add(new Wall(false, 0, 0, height));
         walls.add(new Wall(false, width, 0, height));
         walls.add(new Wall(false, width / 2, 0, (height - D) / 2));
-        walls.add(new Wall(false, width / 2, ((height + D) / 2), height));
+//        walls.add(new Wall(false, width / 2, ((height + D) / 2), height));
+        walls.add(new Wall(false, width / 2, ((height - D) / 2) + D, (height - D) / 2));
     }
 
     private static void generateParticles() {
@@ -35,7 +36,7 @@ public class SystemGenerator {
     }
 
     private static Particle generateParticle(int id) {
-        double toSetX = 0, toSetY = 0, velX = 0, velY = 0;
+        double toSetX = 0, toSetY = 0, velX, velY;
         boolean particleIsSet = false;
         while (!particleIsSet) {
             toSetX = getRandom(0, (width / 2));
@@ -48,7 +49,7 @@ public class SystemGenerator {
         double angleInRadians = angle * Math.PI / 180.0;
         velX = Math.cos(angleInRadians) * V;
         velY = Math.sin(angleInRadians) * V;
-        return new Particle(toSetX, toSetY, W, R, velX, velY);
+        return new Particle(id, toSetX, toSetY, W, R, velX, velY);
     }
 
     private static boolean checkOverlap(double x, double y) {

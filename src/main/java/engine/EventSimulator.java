@@ -32,7 +32,6 @@ public class EventSimulator {
             // 2) Se calcula el tiempo hasta el primer choque (evento!) (tc).
 
             event = SimulationController.getMinimumTc();
-            System.out.println(event.getKey());
 
             // 3 y 4) Se evolucionan todas las partículas según sus ecuaciones de movimiento hasta tc y se guarda el estado.
 
@@ -45,8 +44,8 @@ public class EventSimulator {
 
             // 6) Verifica si se llegó al equilibrio. Si llegó corta, sino vuelve al paso 2).
             isBalanced = SimulationController.verifiesEquilibrium();
-//            if (isBalanced) {
-//                totalTime = System.currentTimeMillis() - startTime;
+            if (isBalanced) {
+                totalTime = System.currentTimeMillis() - startTime;
 //                long pressureStartTime = System.currentTimeMillis(), pressureCurrentTime = 0;
 //                while (pressureCurrentTime < (totalTime - startTime) * 0.2) {
 //                    //calculamos la presion
@@ -56,8 +55,7 @@ public class EventSimulator {
 //                    SimulationController.resolveNewSpeeds(event.getValue());
 //                    pressureCurrentTime = System.currentTimeMillis() - pressureStartTime;
 //                }
-//            }
-//            isBalanced = true;  // borrar
+            }
 
         }
         System.out.println("Simulation took " + totalTime + " ms with " + particles.size() + " particles and D = " + D + "\n");
