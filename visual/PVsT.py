@@ -1,74 +1,61 @@
-
+from cmath import sqrt
 from os import times
-import math
 import numpy as np
+import math
 from matplotlib import pyplot as plt
 from statistics import mean 
+import matplotlib.ticker as mticker
 
 # Read input
 file = open("PVsT.txt", 'r')
 InputLines = file.readlines()
 
-pos0 = []
-pos1 = []
-pos2 = []
-pos3 = []
-n = []
+pressure0 = []
+pressure1 = []
+pressure2 = []
+pressure3 = []
+e = []
 
-pressures = []
-pressures_error = []
-energies = []
-
+## 3500
 
 for line in InputLines:
     str = line.strip().split(' ')
-    pos0.append(int(str[0]))
-    pos1.append(int(str[1]))
-    pos2.append(int(str[2]))
-    pos3.append(int(str[3]))
-    n.append(int(str[4]))
+    pressure0.append(float(str[0]))
+    pressure1.append(float(str[1]))
+    pressure2.append(float(str[2]))
+    pressure3.append(float(str[3]))
+    e.append(float(str[4]))
+
+aux = [pressure0[0],  pressure1[0] , pressure2[0] , pressure3[0]]
+stdDev1 = np.std(aux)
+aux2 = [pressure0[1],  pressure1[1] , pressure2[1] , pressure3[1]]
+stdDev2 = np.std(aux2)
+aux3 = [pressure0[2] , pressure1[2] , pressure2[2] , pressure3[2]]
+stdDev3 = np.std(aux3)
+aux4 = [pressure0[3] , pressure1[3] , pressure2[3] , pressure3[3]]
+stdDev4 = np.std(aux4)
 
 
-times0 = [pos0[0],  pos1[0] , pos2[0] , pos3[0]]
-stdDev1 = np.std(times0)
-times1 = [pos0[1],  pos1[1] , pos2[1] , pos3[1]]
-stdDev2 = np.std(times1)
-times2 = [pos0[2] , pos1[2] , pos2[2] , pos3[2]]
-stdDev3 = np.std(times2)
-times3 = [pos0[3] , pos1[3] , pos2[3] , pos3[3]]
-stdDev4 = np.std(times3)
-times4 = [pos0[4] , pos1[4] , pos2[4] , pos3[4]]
-stdDev5 = np.std(times4)
-times5 = [pos0[5] , pos1[5] , pos2[5] , pos3[5]]
-stdDev6 = np.std(times5)
-times6 = [pos0[6] , pos1[6] , pos2[6] , pos3[6]]
-stdDev7 = np.std(times6)
+averageTime = [np.average(aux), np.average(aux2), np.average(aux3), np.average(aux4)]
 
 
-averageTime = [np.average(times0), np.average(times1), np.average(times2), np.average(times3), np.average(times4), np.average(times5), np.average(times6)]
-##print(n)
+
 fig, ax = plt.subplots()
 
-ax.scatter(energies, pressures)
+ax.scatter(e, averageTime)
 
-
+print(averageTime)
+print(e)
 ##y_error = 20*0.10             ## El 10% de error
-y_pressure_error = [stdDev1, stdDev2, stdDev3, stdDev4, stdDev5, stdDev6, stdDev7]
+y_error = [stdDev1, stdDev2, stdDev3, stdDev4]
 
-
-plt.errorbar(energies,pressures, yerr = y_pressure_error, capsize = 3)
-##ax.set_title("Presion vs Energia con N=??? y D=???")
+plt.xlim(0.00005 * 0, 0.0010 * 1)
+plt.errorbar(e,averageTime, yerr = y_error, capsize = 3, elinewidth=1, markeredgewidth=1)
+##ax.set_title("Tiempo de equilibrio en funcion de D con N=???")
 ax.set_xlabel('Energia (J)')
 ax.set_ylabel('Presion (N/m)')
 
 
+
 plt.show()
 plt.close(fig)
-
-
-## por cada particula ->    
-##                      si su ultimo choque fue con pared horizontal ->  total_impulse += 2*abs(particle.get_y_velocity()) * particle_mass
-##                        si su ultimo choque fue con pared vertical -> total_impulse += 2*abs(particle.get_x_velocity()) * particle_mass
-##  area = (2 * ancho + 2 * largo + 2 * (largo / 2 + float(D) / 2) + 2 * (largo / 2 - float(D) / 2))                                 
-##
-## energy = (1/2)*particle_mass*velocity*velocity

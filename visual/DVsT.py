@@ -24,7 +24,7 @@ for line in InputLines:
     times1.append(int(str[1]))
     times2.append(int(str[2]))
     times3.append(int(str[3]))
-    d.append(int(str[4]))
+    d.append(float(str[4]))
 
 aux = [times0[0],  times1[0] , times2[0] , times3[0]]
 stdDev1 = np.std(aux)
@@ -38,10 +38,8 @@ aux5 = [times0[4] , times1[4] , times2[4] , times3[4]]
 stdDev5 = np.std(aux5)
 aux6 = [times0[5] , times1[5] , times2[5] , times3[5]]
 stdDev6 = np.std(aux6)
-aux7 = [times0[6] , times1[6] , times2[6] , times3[6]]
-stdDev7 = np.std(aux7)
 
-averageTime = [np.average(aux), np.average(aux2), np.average(aux3), np.average(aux4), np.average(aux5), np.average(aux6), np.average(aux7)]
+averageTime = [np.average(aux), np.average(aux2), np.average(aux3), np.average(aux4), np.average(aux5), np.average(aux6)]
 
 
 
@@ -51,7 +49,7 @@ ax.scatter(d, averageTime)
 
 print(averageTime)
 ##y_error = 20*0.10             ## El 10% de error
-y_error = [stdDev1, stdDev2, stdDev3, stdDev4, stdDev5, stdDev6, stdDev7]
+y_error = [stdDev1, stdDev2, stdDev3, stdDev4, stdDev5, stdDev6]
 
 
 plt.errorbar(d,averageTime, yerr = y_error, capsize = 3)

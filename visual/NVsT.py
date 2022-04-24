@@ -34,27 +34,24 @@ times3 = [pos0[3] , pos1[3] , pos2[3] , pos3[3]]
 stdDev4 = np.std(times3)
 times4 = [pos0[4] , pos1[4] , pos2[4] , pos3[4]]
 stdDev5 = np.std(times4)
-times5 = [pos0[5] , pos1[5] , pos2[5] , pos3[5]]
-stdDev6 = np.std(times5)
-times6 = [pos0[6] , pos1[6] , pos2[6] , pos3[6]]
-stdDev7 = np.std(times6)
 
 
-averageTime = [np.average(times0), np.average(times1), np.average(times2), np.average(times3), np.average(times4), np.average(times5), np.average(times6)]
+averageTime = [np.average(times0), np.average(times1), np.average(times2), np.average(times3), np.average(times4)]
 ##print(n)
 fig, ax = plt.subplots()
 ax.scatter(n, averageTime)
 
 
 ##y_error = 20*0.10             ## El 10% de error
-y_error = [stdDev1, stdDev2, stdDev3, stdDev4, stdDev5, stdDev6, stdDev7]
+y_error = [stdDev1, stdDev2, stdDev3, stdDev4, stdDev5]
 
 
 plt.errorbar(n,averageTime, yerr = y_error, capsize = 3)
 ##ax.set_title("Tiempo de equilibrio en funcion de N con D=??")
 ax.set_xlabel('Cantidad de particulas')
-ax.set_ylabel('Tiempo (s)')
+ax.set_ylabel('Tiempo (ms)')
 
-
+plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+ax.yaxis.major.formatter._useMathText = True
 plt.show()
 plt.close(fig)
