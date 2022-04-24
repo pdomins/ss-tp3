@@ -102,7 +102,6 @@ public class CliParser {
             }
             R = 0.0015;
             W = 1;
-            PERCENTAGE = 0.5;
         } catch (ParseException e) {
             System.out.println(e.getMessage() + ".");
             help();

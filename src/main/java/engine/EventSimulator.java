@@ -3,15 +3,20 @@ package engine;
 
 import model.Element;
 import model.FileGenerator;
+import model.Particle;
 
-import static engine.SystemGenerator.particles;
-import static engine.SystemGenerator.walls;
 import static Parser.CliParser.*;
+import static engine.SystemGenerator.*;
+import static engine.SystemGenerator.particles;
 
+import java.util.List;
 import java.util.Map;
 
 public class EventSimulator {
     public static void simulate() {
+        double longitud = 2 * width + 2 * height + 2 * (height-D);
+
+        double totalImpulse = 0, pressure = 0, initialImpulse = 0, finalImpulse = 0;
         long startTime, endTime, totalTime = 0;
         boolean isBalanced = false;
         double tcSum = 0;
@@ -28,11 +33,11 @@ public class EventSimulator {
 
             endTime = System.currentTimeMillis();
 
-            if(tcSum>delta) {
+            if (tcSum > delta) {
                 // agrega las particulas al outputFile
                 fileGenerator.addParticles(particles);
                 fileGenerator.writeCSV(endTime - startTime, particles.size(), SimulationController.getParticlesLeft(), SimulationController.getParticlesRight());
-                tcSum=0;
+                tcSum = 0;
             }
 
             // 2) Se calcula el tiempo hasta el primer choque (evento!) (tc).
@@ -52,21 +57,44 @@ public class EventSimulator {
 
             // 6) Verifica si se llegó al equilibrio. Si llegó corta, sino vuelve al paso 2).
             isBalanced = SimulationController.verifiesEquilibrium();
-            if (isBalanced) {
-                totalTime = System.currentTimeMillis() - startTime;
-                System.out.println("Simulation took " + totalTime + " ms with " + particles.size() + " particles and D = " + D + "\n");
-//                long pressureStartTime = System.currentTimeMillis(), pressureCurrentTime = 0;
-//                while (pressureCurrentTime < (totalTime - startTime) * 0.2) {
-//                    //calculamos la presion
-//                    fileGenerator.addPressure(pressureCurrentTime, SimulationController.getSystemPressure());
-//                    event = SimulationController.getMinimumTc();
-//                    SimulationController.evolveParticles(event.getKey());
-//                    SimulationController.resolveNewSpeeds(event.getValue());
-//                    pressureCurrentTime = System.currentTimeMillis() - pressureStartTime;
-//                }
-            }
 
         }
+
+        totalTime = System.currentTimeMillis() - startTime;
+        System.out.println("Simulation took " + totalTime + " ms with " + particles.size() + " particles and D = " + D);
+
+        //Calcula la presion del sistema
+        long pressureStartTime = System.currentTimeMillis();
+        long pressureCurrentTime = 0;
+        double timeAfterEquilibrium = totalTime + (totalTime) * 0.2;          // 10 segundos
+
+        while (pressureCurrentTime < timeAfterEquilibrium) {
+          //calculamos la presion
+//          fileGenerator.addPressure(pressureCurrentTime, SimulationController.getSystemPressure());
+            event = SimulationController.getMinimumTc();
+            SimulationController.evolveParticles(event.getKey());
+            SimulationController.resolveNewSpeeds(event.getValue());
+            initialImpulse = calculatesImpulse(particles);
+            finalImpulse += initialImpulse;
+            pressureCurrentTime = System.currentTimeMillis() - pressureStartTime;
+        }
+        totalImpulse = finalImpulse;
+
+        pressure = (totalImpulse / (longitud * (totalTime*0.2)));
+        System.out.println("Pressure: " + pressure);
         fileGenerator.closeFiles();
+    }
+
+    public static double calculatesImpulse(List<Particle> particles){
+        double impulse = 0;
+        for(Particle particle :particles){
+            if(particle.getLastCollision() == "h"){
+                impulse += 2 * Math.abs(particle.getyVel()) * particle.getWeight();
+            }
+            else if(particle.getLastCollision() == "v"){
+                impulse += 2 * Math.abs(particle.getxVel()) * particle.getWeight();
+            }
+        }
+        return  impulse;
     }
 }

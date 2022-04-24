@@ -93,7 +93,7 @@ public class FileGenerator {
             fw.close();
             fw = new FileWriter("Walls.xyz", true);
             BufferedWriter buffer = new BufferedWriter(fw);
-            buffer.write("7303\n");
+            buffer.write( "6903" + "\n");
             buffer.write("X Y Radius\n");
             for (Wall wall : walls) {
                 x = wall.getXPos();

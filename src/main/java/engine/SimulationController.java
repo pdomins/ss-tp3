@@ -108,7 +108,7 @@ public class SimulationController {
 
 //        return Math.abs(particlesLeft - particlesRight) < (particles.size() * PERCENTAGE);
 //        return (particlesRight == particles.size() * PERCENTAGE * 0.8);
-        return particlesLeft == particlesRight;
+        return particlesLeft <= particlesRight;
     }
 
     public static int getParticlesLeft() {
@@ -140,16 +140,20 @@ public class SimulationController {
                 pi = (Particle) particle[1];
                 if (wall.isHorizontal()) {
                     pi.yVel *= -1;
+                    pi.setLastCollision("h");
                 } else {
                     pi.xVel *= -1;
+                    pi.setLastCollision("v");
                 }
             } else {
                 wall = (Wall) particle[1];
                 pi = (Particle) particle[0];
                 if (wall.isHorizontal()) {
                     pi.yVel *= -1;
+                    pi.setLastCollision("h");
                 } else {
                     pi.xVel *= -1;
+                    pi.setLastCollision("v");
                 }
             }
         } else {
@@ -170,13 +174,9 @@ public class SimulationController {
                 pj.xVel -= Jx / particle[1].weight;
                 pj.yVel -= Jy / particle[1].weight;
             }
+            pi.setLastCollision("p");
+            pj.setLastCollision("p");
         }
-    }
-
-    public static double getSystemPressure() {
-        double pressure = 0;
-
-        return pressure;
     }
 
 }

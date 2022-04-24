@@ -14,6 +14,7 @@ public class Particle extends Element {
         this.xVel = xVel;
         this.yVel = yVel;
         this.isBorder = false;
+        this.lastCollision = "n";
     }
 
     public Particle(int id, double xPos, double yPos, boolean isBorder) {
@@ -22,6 +23,7 @@ public class Particle extends Element {
         this.xVel = 0;
         this.yVel = 0;
         this.isBorder = isBorder;
+        this.lastCollision = "n";
     }
 
     public void calculateXPosition(double time) {
@@ -48,7 +50,7 @@ public class Particle extends Element {
         this.lastCollision = lastCollision;
     }
 
-    public String lastCollision() {
+    public String getLastCollision() {
         return this.lastCollision;
     }
 }
