@@ -67,9 +67,9 @@ public class EventSimulator {
         //Calcula la presion del sistema
         long pressureStartTime = System.currentTimeMillis();
         long pressureCurrentTime = 0;
-        double timeAfterEquilibrium = totalTime + (totalTime) * 0.2;          // 10 segundos
+        double timeAfterEquilibrium = 10000;          // 10 segundos
 
-        while (pressureCurrentTime < timeAfterEquilibrium) {
+        while (pressureCurrentTime < 10000) {
           //calculamos la presion
 //          fileGenerator.addPressure(pressureCurrentTime, SimulationController.getSystemPressure());
             event = SimulationController.getMinimumTc();
@@ -81,7 +81,7 @@ public class EventSimulator {
         }
         totalImpulse = finalImpulse;
 
-        pressure = (totalImpulse / (longitud * (totalTime*0.2)));
+        pressure = (totalImpulse / (longitud * (10000)));
         System.out.println("Pressure: " + pressure);
         fileGenerator.closeFiles();
     }
