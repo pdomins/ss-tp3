@@ -25,8 +25,10 @@ public class SimulationController {
                 } else {
                     if (p.yPos > (((SystemGenerator.height - D) / 2) + D)) {
                         w = SystemGenerator.getWall(5);
-                    } else {
+                    } else if (p.yPos < (((SystemGenerator.height - D) / 2))) {
                         w = SystemGenerator.getWall(4);
+                    } else {
+                        w = SystemGenerator.getWall(3);
                     }
                 }
                 events.put(calculateImpactTime(w.xPos, -p.radius, p.xPos, p.xVel), new Element[]{p, w});
@@ -34,8 +36,10 @@ public class SimulationController {
                 if (p.xPos > SystemGenerator.width / 2) {
                     if (p.yPos > (((SystemGenerator.height - D) / 2) + D)) {
                         w = SystemGenerator.getWall(5);
-                    } else {
+                    } else if (p.yPos < (((SystemGenerator.height - D) / 2))) {
                         w = SystemGenerator.getWall(4);
+                    } else {
+                        w = SystemGenerator.getWall(2);
                     }
                 } else {
                     w = SystemGenerator.getWall(2);
@@ -66,17 +70,21 @@ public class SimulationController {
                 }
             }
         }
-        return events.ceilingEntry(events.firstKey()); //CHECK
+
+        return events.firstEntry(); //CHECK
     }
 
     public static void evolveParticles(Double tc) {
         for (Particle p : particles) {
-            p.calculateXPosition(tc);
-            p.calculateYPosition(tc);
+            if (!p.isBorder()) {
+                p.calculateXPosition(tc);
+                p.calculateYPosition(tc);
+            }
         }
     }
 
     private static double calculateImpactTime(double wallPos, double radius, double particlePos, double particleVel) {
+        if ((wallPos + radius - particlePos) / particleVel < 0) return 0;
         return (wallPos + radius - particlePos) / particleVel;
     }
 
@@ -93,18 +101,17 @@ public class SimulationController {
     }
 
     public static boolean verifiesEquilibrium() {
-        int particlesLeft = getPariclesLeft();
+        int particlesLeft = getParticlesLeft();
         int particlesRight = getParticlesRight();
+
         System.out.println(particlesLeft + " " + particlesRight);
 
-        if (Math.abs(particlesLeft - particlesRight) < (particles.size() * PERCENTAGE)) {
-            return true;
-        } else {
-            return false;
-        }
+//        return Math.abs(particlesLeft - particlesRight) < (particles.size() * PERCENTAGE);
+//        return (particlesRight == particles.size() * PERCENTAGE * 0.8);
+        return particlesLeft <= particlesRight;
     }
 
-    public static int getPariclesLeft() {
+    public static int getParticlesLeft() {
         int particlesLeft = 0;
         for (Particle particle : particles) {
             if (particle.getXPos() < width / 2) {
@@ -133,16 +140,20 @@ public class SimulationController {
                 pi = (Particle) particle[1];
                 if (wall.isHorizontal()) {
                     pi.yVel *= -1;
+                    pi.setLastCollision("h");
                 } else {
                     pi.xVel *= -1;
+                    pi.setLastCollision("v");
                 }
             } else {
                 wall = (Wall) particle[1];
                 pi = (Particle) particle[0];
                 if (wall.isHorizontal()) {
                     pi.yVel *= -1;
+                    pi.setLastCollision("h");
                 } else {
                     pi.xVel *= -1;
+                    pi.setLastCollision("v");
                 }
             }
         } else {
@@ -155,18 +166,17 @@ public class SimulationController {
             double Jx = (J * (pj.xPos - pi.xPos)) / sigma;
             double Jy = (J * (pj.yPos - pi.yPos)) / sigma;
 
-            pi.xVel += Jx / particle[0].weight;
-            pi.yVel += Jy / particle[0].weight;
-
-            pj.xVel -= Jx / particle[1].weight;
-            pj.yVel -= Jy / particle[1].weight;
+            if (!pi.isBorder()) {
+                pi.xVel += Jx / particle[0].weight;
+                pi.yVel += Jy / particle[0].weight;
+            }
+            if (!pj.isBorder()) {
+                pj.xVel -= Jx / particle[1].weight;
+                pj.yVel -= Jy / particle[1].weight;
+            }
+            pi.setLastCollision("p");
+            pj.setLastCollision("p");
         }
-    }
-
-    public static double getSystemPressure() {
-        double pressure = 0;
-
-        return pressure;
     }
 
 }

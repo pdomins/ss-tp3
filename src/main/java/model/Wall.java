@@ -7,17 +7,23 @@ public class Wall extends Element {
     private double xPosition;
     private double yPosition;
     private double length;
+    private int id;
 
     public Wall() {
         super();
     }
 
-    public Wall(boolean isHorizontal, double xPosition, double yPosition, double length) {
-        super(xPosition, yPosition, 0, 0.0001); //esto vuela cuando se vaya Element
+    public Wall(int id, boolean isHorizontal, double xPosition, double yPosition, double length) {
+        super(xPosition, yPosition, 0, 0.0001);
+        this.id = id;
         this.isHorizontal = isHorizontal;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.length = length;
+    }
+
+    public Wall(double xPosition, double yPosition, double weight, double radius) {
+        super(xPosition, yPosition, weight, radius);
     }
 
     public boolean isHorizontal(){

@@ -67,10 +67,16 @@ public class FileGenerator {
     public void addParticles(List<Particle> particles) {
         try {
             buffer1.write(particles.size() + "\n");
-            buffer1.write("X Y XVelo YVelo Radius Weight\n");
+            buffer1.write("X Y XVelo YVelo Radius Weight Color\n");
             for (Particle particle : particles) {
-                buffer1.write(particle.getXPos() + " " + particle.getYPos() + " " + particle.getxVel() + " "
-                        + particle.getyVel() + " " + particle.getRadius() + " " + particle.getWeight() + "\n");
+                if(particle.getXPos() > width /2){
+                    buffer1.write(particle.getXPos() + " " + particle.getYPos() + " " + particle.getxVel() + " "
+                            + particle.getyVel() + " " + particle.getRadius() + " " + particle.getWeight() + " " + 0.5 + "\n");
+                }
+                else {
+                    buffer1.write(particle.getXPos() + " " + particle.getYPos() + " " + particle.getxVel() + " "
+                            + particle.getyVel() + " " + particle.getRadius() + " " + particle.getWeight() + " " + 1 + "\n");
+                }
             }
             //buffer1.close();
         } catch (IOException e) {
@@ -87,7 +93,7 @@ public class FileGenerator {
             fw.close();
             fw = new FileWriter("Walls.xyz", true);
             BufferedWriter buffer = new BufferedWriter(fw);
-            buffer.write("7303\n");
+            buffer.write( "6903" + "\n");
             buffer.write("X Y Radius\n");
             for (Wall wall : walls) {
                 x = wall.getXPos();
@@ -130,6 +136,7 @@ public class FileGenerator {
         try {
             buffer1.close();
             buffer2.close();
+            buffer3.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
