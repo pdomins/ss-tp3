@@ -11,13 +11,14 @@ import static engine.SystemGenerator.particles;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class EventSimulator {
     public static void simulate() {
         double longitud = 2 * width + 2 * height + 2 * (height-D);
 
-        double totalImpulse = 0, pressure = 0, initialImpulse = 0, finalImpulse = 0;
-        long startTime, endTime, totalTime = 0;
+        double totalImpulse, pressure, initialImpulse, finalImpulse = 0;
+        long startTime, endTime, totalTime;
         boolean isBalanced = false;
         double tcSum = 0;
         double delta = T;
@@ -88,10 +89,10 @@ public class EventSimulator {
     public static double calculatesImpulse(List<Particle> particles){
         double impulse = 0;
         for(Particle particle :particles){
-            if(particle.getLastCollision() == "h"){
+            if(Objects.equals(particle.getLastCollision(), "h")){
                 impulse += 2 * Math.abs(particle.getyVel()) * particle.getWeight();
             }
-            else if(particle.getLastCollision() == "v"){
+            else if(Objects.equals(particle.getLastCollision(), "v")){
                 impulse += 2 * Math.abs(particle.getxVel()) * particle.getWeight();
             }
         }

@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static Parser.CliParser.D;
-import static Parser.CliParser.PERCENTAGE;
 import static engine.SystemGenerator.particles;
 import static engine.SystemGenerator.width;
 
@@ -71,7 +70,7 @@ public class SimulationController {
             }
         }
 
-        return events.firstEntry(); //CHECK
+        return events.firstEntry();
     }
 
     public static void evolveParticles(Double tc) {
@@ -103,8 +102,6 @@ public class SimulationController {
     public static boolean verifiesEquilibrium() {
         int particlesLeft = getParticlesLeft();
         int particlesRight = getParticlesRight();
-
-        System.out.println(particlesLeft + " " + particlesRight);
 
 //        return Math.abs(particlesLeft - particlesRight) < (particles.size() * PERCENTAGE);
 //        return (particlesRight == particles.size() * PERCENTAGE * 0.8);
